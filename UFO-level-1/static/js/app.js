@@ -1,4 +1,4 @@
-// from data.js
+// setting table data as the info from data.js, variable named data in that file
 var tableData = data;
 
 // YOUR CODE HERE!
@@ -28,6 +28,9 @@ function searchDate() {
     var inputElement = d3.select(".form-control")
 
     // obtaining the value of the input
+    // I need to relook at this because I am confised at how I am selecting value when there is no "value" in the index.html
+    // no wait I understand, we are getting the value of inputElement
+    // so .property("value") is an actual thing that we are applying to inputElement
     var inputValue = inputElement.property("value");
 
     // using these gave an input
@@ -40,6 +43,47 @@ function searchDate() {
     // this works to log it
     console.log(filteredData);
     
+
+// CREATING THE TABLE
+
+
+    // Getting a reference to the table body in index.html
+    var tbody = d3.select("tbody");
+
+    // appending a row 'tr' for each filteredData object
+    // data.forEach(function(filteredData) {
+    //     console.log(filteredData);
+    //     var row = tbody.append("tr");
+    //     });
+    // this works! it is all logged and tr appears in the section in tbody when looking at Elements in chrome
+
+
+
+    // tableData.forEach((filteredData) => {
+    //     var row = tbody.append("tr");
+    //     // adding div with table body
+    //     Object.entries(filteredData).forEach(([key, value]) => {
+    //       var cell = row.append("td");
+    //       cell.text(value);
+    //     });
+    //   });
+
+    // so it kinda works but it is just printing everything!! it's not actually filtering!
+// from what I an see in the console is that it is filtering correctly but what I am putting in the table isn't that
+// it's somehow everythong!
+
+
+
+    filteredData.forEach((x) => {
+        var row = tbody.append("tr");
+        // adding div with table body
+        Object.entries(x).forEach(([key, value]) => {
+          var cell = row.append("td");
+          cell.text(value);
+        });
+      });
+
+    // YAY it's workig now!!
 
 
 
