@@ -9,7 +9,11 @@ var filterButton = d3.select("#filter-btn");
 // Selecting the form
 // there is a form tag but also an id form-group which does not include the seciton with the button
 // not sure which one is needed
-var form = d3.select("#form-group");
+var form = d3.select("#form");
+// have tried form-group and form-control
+// I fixed it!!!! i was using the id or classs in a div tag
+// but there was a form tag there with no id or class
+// so i addedd a "form" id to that div tag and it worked!!!!
 
 // Creating event handlers for clicking the button or pressing the enter key
 filterButton.on("click", searchDate);
