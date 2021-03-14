@@ -213,36 +213,220 @@ function searchDate() {
                         });
 
                     }
-
                     // the other option where country is inculded is already taken care of above
                     // so don't need an else if  here
                     // could probably actually combine the else if and if into one
-
                }
 
             }
-
             // entry for country, have city and date already included
-            else if (countryFilteredData.length !== 0){}
+            else if (countryFilteredData.length !== 0){
+                // no entry for others, just date and city
+                if (stateFilteredData.length === 0 && shapeFilteredData.length === 0){
+                    // dropping any entries in table
+                    tbody.html("");
+                    
+                    //setting variable for selections
+                    var countryDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.country === countryInputValue);
 
+                    countryDateCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+                }
+
+                // state not included (already accounted for) and shape included
+                else if (stateFilteredData.length === 0 && shapeFilteredData.length !== 0){
+                    // dropping any entries in table
+                    tbody.html("");
+
+                    //setting variable for selections
+                    var shapeCountryDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+
+                    shapeCountryDateCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+
+                }
+            }
 
             // entry for shape, have city and date already included
-            else if (shapeFilteredData.length !== 0){}
+            else if (shapeFilteredData.length !== 0){
+                // no entry for others expect date, city
+                if (stateFilteredData.length === 0 && countryFilteredData.length === 0){
+                    // dropping any entries in table
+                    tbody.html("");
+
+                    //setting variable for selections
+                    var shapeDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.shape === shapeInputValue);
+
+                    shapeDateCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+                }
+            }
         }
 
         // entry for state, have date included
-        else if (stateFilteredData.length !== 0){}
+        else if (stateFilteredData.length !== 0){
+            // no entry for others
+            if (cityFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+               // dropping any entries in table
+               tbody.html("");
 
+               //setting variable for selections
+               var stateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue);
+               
+               stateDateFilteredData.forEach((x) => {
+                var row = tbody.append("tr");
+                // adding div with table body
+                Object.entries(x).forEach(([key, value]) => {
+                var cell = row.append("td");
+                cell.text(value);
+                });
+            });    
+            }
+
+            // no entry for city (it has been included for these options already)
+            if (cityFilteredData.length === 0){
+                // entry for country
+                if (countryFilteredData.length !== 0){
+                    // no entry for shape
+                    if (shapeFilteredData.length === 0){
+                        // dropping any entries in table
+                        tbody.html("")
+
+                        //setting variable for selections
+                        var countryStateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue && sighting.country === countryInputValue);
+                        
+                        countryStateDateFilteredData.forEach((x) => {
+                            var row = tbody.append("tr");
+                            // adding div with table body
+                            Object.entries(x).forEach(([key, value]) => {
+                            var cell = row.append("td");
+                            cell.text(value);
+                            });
+                        });    
+                    }
+
+                    // entry for shape
+                    else if (shapeFilteredData.length !== 0){
+                         // dropping any entries in table
+                         tbody.html("")
+
+                         //setting variable for selections
+                         var shapeCountryStateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                         
+                         shapeCountryStateDateFilteredData.forEach((x) => {
+                             var row = tbody.append("tr");
+                             // adding div with table body
+                             Object.entries(x).forEach(([key, value]) => {
+                             var cell = row.append("td");
+                             cell.text(value);
+                             });
+                         });
+                    }
+                }
+
+                //entry for shape and no entry for country
+                if (shapeFilteredData.length !== 0 && countryFilteredData.length === 0){
+                    // dropping any entries in table
+                    tbody.html("")
+
+                    //setting variable for selections
+                    var shapeStateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue && sighting.shape === shapeInputValue);
+                         
+                    shapeStateDateFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+                }
+            }
+        }
 
         //entry for country, have date included
-        else if (countryFilteredData.length !== 0){}
+        else if (countryFilteredData.length !== 0){
+            // no entry for others
+            if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && shapeFilteredData.length === 0){
+                // dropping any entries in table
+                tbody.html("");
+ 
+                //setting variable for selections
+                var countryDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.country === countryInputValue);
+                
+                countryDateFilteredData.forEach((x) => {
+                 var row = tbody.append("tr");
+                 // adding div with table body
+                 Object.entries(x).forEach(([key, value]) => {
+                 var cell = row.append("td");
+                 cell.text(value);
+                 });
+             });    
+            }
+
+            //entry for shape but not city or state
+            if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && shapeFilteredData.length !== 0){
+                // dropping any entries in table
+                tbody.html("");
+ 
+                //setting variable for selections
+                var shapeCountryDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                
+                shapeCountryDateFilteredData.forEach((x) => {
+                 var row = tbody.append("tr");
+                 // adding div with table body
+                 Object.entries(x).forEach(([key, value]) => {
+                 var cell = row.append("td");
+                 cell.text(value);
+                 });
+             });    
+            }
+        }
 
         //entry for shape, have date included
-        else if (shapeFilteredData.length !== 0){}
+        else if (shapeFilteredData.length !== 0){
+            // no entry for others
+            if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && countryFilteredData.length === 0){
+                // dropping any entries in table
+                tbody.html("");
+ 
+                //setting variable for selections
+                var shapeDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.shape === shapeInputValue);
+                
+                shapeDateFilteredData.forEach((x) => {
+                 var row = tbody.append("tr");
+                 // adding div with table body
+                 Object.entries(x).forEach(([key, value]) => {
+                 var cell = row.append("td");
+                 cell.text(value);
+                 });
+             });    
+            }
+        }
     }
 
     // no entry for date
-    else if (dateFilteredData.length === 0){}
+    else if (dateFilteredData.length === 0){
+        
+    }
 
 
 
