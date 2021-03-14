@@ -425,7 +425,326 @@ function searchDate() {
 
     // no entry for date
     else if (dateFilteredData.length === 0){
-        
+         // no entry for others
+         if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+            tbody.html("");
+            
+            //appending a row
+            var row = tbody.append("tr");
+            // adding a data tag
+            var cell = row.append("td");
+            
+            cell.text("No sightings match your search criteria");
+            
+
+        }
+        // entry for city
+        else if (cityFilteredData.length !== 0){
+            // no entry for others, just city
+            if (stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+                tbody.html("");
+                
+                var CityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
+
+                CityFilteredData.forEach((x) => {
+                    var row = tbody.append("tr");
+                    // adding div with table body
+                    Object.entries(x).forEach(([key, value]) => {
+                      var cell = row.append("td");
+                      cell.text(value);
+                    });
+                  });
+            }
+
+            // entry for state
+            else if (stateFilteredData.length !== 0){
+
+                // no entry for others, info for city, state
+                if (countryFilteredData.length === 0 && shapeFilteredData.length === 0) {
+                    tbody.html("");
+
+                    var stateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue);
+                    
+                    stateCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                          var cell = row.append("td");
+                          cell.text(value);
+                        });
+                      });
+                }
+
+                // entry for country
+                else if (countryFilteredData.length !== 0){
+
+                    // no entry for shape
+                    if (shapeFilteredData.length === 0){
+                        // dropping any entries in table
+                        tbody.html("");
+
+                        //setting variable for selections
+                        var countryStateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue);
+                    
+                        countryStateCityFilteredData.forEach((x) => {
+                            var row = tbody.append("tr");
+                            // adding div with table body
+                            Object.entries(x).forEach(([key, value]) => {
+                            var cell = row.append("td");
+                            cell.text(value);
+                            });
+                        });
+                    }
+
+                    // entry for shape
+                    else if (shapeFilteredData.length !== 0){
+                         // dropping any entries in table
+                         tbody.html("");
+
+                         //setting variable for selections
+                         var shapeCountryStateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                     
+                         shapeCountryStateCityFilteredData.forEach((x) => {
+                             var row = tbody.append("tr");
+                             // adding div with table body
+                             Object.entries(x).forEach(([key, value]) => {
+                             var cell = row.append("td");
+                             cell.text(value);
+                             });
+                         });
+                    }
+                }
+
+                // entry for shape
+                else if (shapeFilteredData.length !== 0){
+
+                    // no entry for country
+                    if (countryFilteredData.length === 0){
+                        // dropping any entries in table
+                        tbody.html("");
+
+                        //setting variable for selections
+                        var shapeStateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.shape === shapeInputValue);
+                    
+                        shapeStateCityFilteredData.forEach((x) => {
+                            var row = tbody.append("tr");
+                            // adding div with table body
+                            Object.entries(x).forEach(([key, value]) => {
+                            var cell = row.append("td");
+                            cell.text(value);
+                            });
+                        });
+
+                    }
+                    // the other option where country is inculded is already taken care of above
+                    // so don't need an else if  here
+                    // could probably actually combine the else if and if into one
+               }
+
+            }
+            // entry for country, have city already included
+            else if (countryFilteredData.length !== 0){
+                // no entry for others, just city
+                if (stateFilteredData.length === 0 && shapeFilteredData.length === 0){
+                    // dropping any entries in table
+                    tbody.html("");
+                    
+                    //setting variable for selections
+                    var countryCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.country === countryInputValue);
+
+                    countryCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+                }
+
+                // state not included (already accounted for) and shape included
+                else if (stateFilteredData.length === 0 && shapeFilteredData.length !== 0){
+                    // dropping any entries in table
+                    tbody.html("");
+
+                    //setting variable for selections
+                    var shapeCountryCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+
+                    shapeCountryCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+
+                }
+            }
+
+            // entry for shape, have city already included
+            else if (shapeFilteredData.length !== 0){
+                // no entry for others except city
+                if (stateFilteredData.length === 0 && countryFilteredData.length === 0){
+                    // dropping any entries in table
+                    tbody.html("");
+
+                    //setting variable for selections
+                    var shapeCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.shape === shapeInputValue);
+
+                    shapeCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+                }
+            }
+        }
+
+        // entry for state, have date not included
+        else if (stateFilteredData.length !== 0){
+            // no entry for others
+            if (cityFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+               // dropping any entries in table
+               tbody.html("");
+
+               //setting variable for selections
+               var stateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue);
+               
+               stateFilteredData.forEach((x) => {
+                var row = tbody.append("tr");
+                // adding div with table body
+                Object.entries(x).forEach(([key, value]) => {
+                var cell = row.append("td");
+                cell.text(value);
+                });
+            });    
+            }
+
+            // no entry for city (it has been included for these options already)
+            if (cityFilteredData.length === 0){
+                // entry for country
+                if (countryFilteredData.length !== 0){
+                    // no entry for shape
+                    if (shapeFilteredData.length === 0){
+                        // dropping any entries in table
+                        tbody.html("")
+
+                        //setting variable for selections
+                        var countryStateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue && sighting.country === countryInputValue);
+                        
+                        countryStateFilteredData.forEach((x) => {
+                            var row = tbody.append("tr");
+                            // adding div with table body
+                            Object.entries(x).forEach(([key, value]) => {
+                            var cell = row.append("td");
+                            cell.text(value);
+                            });
+                        });    
+                    }
+
+                    // entry for shape
+                    else if (shapeFilteredData.length !== 0){
+                         // dropping any entries in table
+                         tbody.html("")
+
+                         //setting variable for selections
+                         var shapeCountryStateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                         
+                         shapeCountryStateFilteredData.forEach((x) => {
+                             var row = tbody.append("tr");
+                             // adding div with table body
+                             Object.entries(x).forEach(([key, value]) => {
+                             var cell = row.append("td");
+                             cell.text(value);
+                             });
+                         });
+                    }
+                }
+
+                //entry for shape and no entry for country
+                if (shapeFilteredData.length !== 0 && countryFilteredData.length === 0){
+                    // dropping any entries in table
+                    tbody.html("")
+
+                    //setting variable for selections
+                    var shapeStateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue && sighting.shape === shapeInputValue);
+                         
+                    shapeStateFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                        var cell = row.append("td");
+                        cell.text(value);
+                        });
+                    });
+                }
+            }
+        }
+
+        //entry for country, have date not included
+        else if (countryFilteredData.length !== 0){
+            // no entry for others
+            if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && shapeFilteredData.length === 0){
+                // dropping any entries in table
+                tbody.html("");
+ 
+                //setting variable for selections
+                var countryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue);
+                
+                countryFilteredData.forEach((x) => {
+                 var row = tbody.append("tr");
+                 // adding div with table body
+                 Object.entries(x).forEach(([key, value]) => {
+                 var cell = row.append("td");
+                 cell.text(value);
+                 });
+             });    
+            }
+
+            //entry for shape but not city or state
+            if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && shapeFilteredData.length !== 0){
+                // dropping any entries in table
+                tbody.html("");
+ 
+                //setting variable for selections
+                var shapeCountryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                
+                shapeCountryFilteredData.forEach((x) => {
+                 var row = tbody.append("tr");
+                 // adding div with table body
+                 Object.entries(x).forEach(([key, value]) => {
+                 var cell = row.append("td");
+                 cell.text(value);
+                 });
+             });    
+            }
+        }
+
+        //entry for shape, have date not included
+        else if (shapeFilteredData.length !== 0){
+            // no entry for others
+            if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && countryFilteredData.length === 0){
+                // dropping any entries in table
+                tbody.html("");
+ 
+                //setting variable for selections
+                var shapeFilteredData = tableData.filter(sighting => sighting.shape === shapeInputValue);
+                
+                shapeFilteredData.forEach((x) => {
+                 var row = tbody.append("tr");
+                 // adding div with table body
+                 Object.entries(x).forEach(([key, value]) => {
+                 var cell = row.append("td");
+                 cell.text(value);
+                 });
+             });    
+            }
+        }
+
     }
 
 
