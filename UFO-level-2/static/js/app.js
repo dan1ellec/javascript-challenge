@@ -19,7 +19,8 @@ function searchDate() {
     // Preventing the page from refreshing, when click submit or enter 
     d3.event.preventDefault();
 
-    //DATE
+    
+//DATE
 
     // Selecting the input element
     var dateInputElement = d3.select("#datetime")
@@ -32,10 +33,13 @@ function searchDate() {
     // don't think it matters what the parameter name is
     var dateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue);
     
-// CREATING THE TABLE
+    // CREATING THE TABLE
 
     // Getting a reference to the table body in index.html
     var tbody = d3.select("tbody");
+
+    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
+    tbody.html("");
 
     dateFilteredData.forEach((x) => {
         var row = tbody.append("tr");
@@ -46,7 +50,7 @@ function searchDate() {
         });
       });
 
-    // CITY !!!!!
+// CITY !!!!!
 
       // Selecting the input element
     var cityInputElement = d3.select("#city")
@@ -54,15 +58,16 @@ function searchDate() {
     // obtaining the value of inputElement variable
     var cityInputValue = cityInputElement.property("value");
 
-    // finding the filtered data for the specific entered date
-    // using sighting as a pararmeter for this proccess. it references all the data from tableData
-    // don't think it matters what the parameter name is
+    // finding the filtered data for the specific entered city
     var cityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
     
-// CREATING THE TABLE
+    // CREATING THE TABLE
 
     // Getting a reference to the table body in index.html
     var tbody = d3.select("tbody");
+
+    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
+    tbody.html("");
 
     cityFilteredData.forEach((x) => {
         var row = tbody.append("tr");
@@ -73,7 +78,94 @@ function searchDate() {
         });
       });
     
+// STATE !!!!!
 
+      // Selecting the input element
+    var stateInputElement = d3.select("#state")
+
+      // obtaining the value of inputElement variable
+    var stateInputValue = stateInputElement.property("value");
+  
+      // finding the filtered data for the specific entered city
+    var stateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue);
+      
+      // CREATING THE TABLE
+  
+      // Getting a reference to the table body in index.html
+    var tbody = d3.select("tbody");
+
+    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
+    tbody.html("");
+  
+    stateFilteredData.forEach((x) => {
+        var row = tbody.append("tr");
+        // adding div with table body
+        Object.entries(x).forEach(([key, value]) => {
+          var cell = row.append("td");
+          cell.text(value);
+        });
+      });
+
+
+// COUNTRY !!!!!
+
+      // Selecting the input element
+    var countryInputElement = d3.select("#country")
+
+      // obtaining the value of inputElement variable
+    var countryInputValue = countryInputElement.property("value");
+  
+      // finding the filtered data for the specific entered city
+    var countryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue);
+      
+      // CREATING THE TABLE
+  
+      // Getting a reference to the table body in index.html
+    var tbody = d3.select("tbody");
+
+    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
+    tbody.html("");
+  
+    countryFilteredData.forEach((x) => {
+        var row = tbody.append("tr");
+        // adding div with table body
+        Object.entries(x).forEach(([key, value]) => {
+          var cell = row.append("td");
+          cell.text(value);
+        });
+      });
+
+
+// SHAPE !!!!!
+
+      // Selecting the input element
+    var shapeInputElement = d3.select("#shape")
+
+      // obtaining the value of inputElement variable
+    var shapeInputValue = shapeInputElement.property("value");
+  
+      // finding the filtered data for the specific entered city
+    var shapeFilteredData = tableData.filter(sighting => sighting.shape === shapeInputValue);
+      
+      // CREATING THE TABLE
+  
+      // Getting a reference to the table body in index.html
+    var tbody = d3.select("tbody");
+
+    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
+    tbody.html("");
+  
+    shapeFilteredData.forEach((x) => {
+        var row = tbody.append("tr");
+        // adding div with table body
+        Object.entries(x).forEach(([key, value]) => {
+          var cell = row.append("td");
+          cell.text(value);
+        });
+      });
+
+
+    //need to d a loop here or something 
 
 
 }

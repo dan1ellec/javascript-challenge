@@ -77,6 +77,9 @@ function searchDate() {
 // it's somehow everythong!
 
 
+    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
+    // Otherwise if dates are submitted without the page being refreshed, each group of filtered dates will be added to the table holding previous dates   
+    tbody.html("");
 
     filteredData.forEach((x) => {
         var row = tbody.append("tr");
