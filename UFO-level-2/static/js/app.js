@@ -32,23 +32,7 @@ function searchDate() {
     // using sighting as a pararmeter for this proccess. it references all the data from tableData
     // don't think it matters what the parameter name is
     var dateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue);
-    
-    // CREATING THE TABLE
 
-    // Getting a reference to the table body in index.html
-    var tbody = d3.select("tbody");
-
-    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
-    tbody.html("");
-
-    dateFilteredData.forEach((x) => {
-        var row = tbody.append("tr");
-        // adding div with table body
-        Object.entries(x).forEach(([key, value]) => {
-          var cell = row.append("td");
-          cell.text(value);
-        });
-      });
 
 // CITY !!!!!
 
@@ -61,22 +45,6 @@ function searchDate() {
     // finding the filtered data for the specific entered city
     var cityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
     
-    // CREATING THE TABLE
-
-    // Getting a reference to the table body in index.html
-    var tbody = d3.select("tbody");
-
-    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
-    tbody.html("");
-
-    cityFilteredData.forEach((x) => {
-        var row = tbody.append("tr");
-        // adding div with table body
-        Object.entries(x).forEach(([key, value]) => {
-          var cell = row.append("td");
-          cell.text(value);
-        });
-      });
     
 // STATE !!!!!
 
@@ -88,23 +56,6 @@ function searchDate() {
   
       // finding the filtered data for the specific entered city
     var stateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue);
-      
-      // CREATING THE TABLE
-  
-      // Getting a reference to the table body in index.html
-    var tbody = d3.select("tbody");
-
-    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
-    tbody.html("");
-  
-    stateFilteredData.forEach((x) => {
-        var row = tbody.append("tr");
-        // adding div with table body
-        Object.entries(x).forEach(([key, value]) => {
-          var cell = row.append("td");
-          cell.text(value);
-        });
-      });
 
 
 // COUNTRY !!!!!
@@ -117,23 +68,6 @@ function searchDate() {
   
       // finding the filtered data for the specific entered city
     var countryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue);
-      
-      // CREATING THE TABLE
-  
-      // Getting a reference to the table body in index.html
-    var tbody = d3.select("tbody");
-
-    // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
-    tbody.html("");
-  
-    countryFilteredData.forEach((x) => {
-        var row = tbody.append("tr");
-        // adding div with table body
-        Object.entries(x).forEach(([key, value]) => {
-          var cell = row.append("td");
-          cell.text(value);
-        });
-      });
 
 
 // SHAPE !!!!!
@@ -147,26 +81,234 @@ function searchDate() {
       // finding the filtered data for the specific entered city
     var shapeFilteredData = tableData.filter(sighting => sighting.shape === shapeInputValue);
       
-      // CREATING THE TABLE
-  
-      // Getting a reference to the table body in index.html
+
+    console.log(dateFilteredData.length);
+    console.log(cityFilteredData.length);
+    console.log(stateFilteredData.length);
+    console.log(countryFilteredData.length);
+
+    //need to d a loop here or something 
+
+
+        
+    // CREATING THE TABLE
+
+    // Getting a reference to the table body in index.html
     var tbody = d3.select("tbody");
 
     // Clearing the table rows and values from tbody tag in html code before the filtered data is added to the table
     tbody.html("");
+
+    //entry for date
+    if (dateFilteredData.length !== 0) {
+        // no entry for others
+        if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+            tbody.html("");
+            
+            dateFilteredData.forEach((x) => {
+                var row = tbody.append("tr");
+                // adding div with table body
+                Object.entries(x).forEach(([key, value]) => {
+                  var cell = row.append("td");
+                  cell.text(value);
+                });
+              });
+
+        }
+        // entry for city
+        else if (cityFilteredData.length !== 0){
+            // no entry for others, just date and city
+            if (stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+                tbody.html("");
+                
+                var dateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue);
+
+                dateCityFilteredData.forEach((x) => {
+                    var row = tbody.append("tr");
+                    // adding div with table body
+                    Object.entries(x).forEach(([key, value]) => {
+                      var cell = row.append("td");
+                      cell.text(value);
+                    });
+                  });
+            }
+
+            // entry for state
+            else if (stateFilteredData.length !== 0){
+
+                // no entry for others, info for date, city, state
+                if (countryFilteredData.length === 0 && shapeFilteredData.length === 0) {
+                    tbody.html("");
+
+                    var stateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue);
+                    
+                    stateDateCityFilteredData.forEach((x) => {
+                        var row = tbody.append("tr");
+                        // adding div with table body
+                        Object.entries(x).forEach(([key, value]) => {
+                          var cell = row.append("td");
+                          cell.text(value);
+                        });
+                      });
+                }
+
+                // entry for country
+                else if (countryFilteredData.length !== 0){
+
+                    // no entry for shape
+                    if (shapeFilteredData.length === 0){
+                        // dropping any entries in table
+                        tbody.html("");
+
+                        //setting variable for selections
+                        var countryStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue);
+                    
+                        countryStateDateCityFilteredData.forEach((x) => {
+                            var row = tbody.append("tr");
+                            // adding div with table body
+                            Object.entries(x).forEach(([key, value]) => {
+                            var cell = row.append("td");
+                            cell.text(value);
+                            });
+                        });
+                    }
+
+                    // entry for shape
+                    else if (shapeFilteredData.length !== 0){
+                         // dropping any entries in table
+                         tbody.html("");
+
+                         //setting variable for selections
+                         var shapeCountryStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                     
+                         shapeCountryStateDateCityFilteredData.forEach((x) => {
+                             var row = tbody.append("tr");
+                             // adding div with table body
+                             Object.entries(x).forEach(([key, value]) => {
+                             var cell = row.append("td");
+                             cell.text(value);
+                             });
+                         });
+                    }
+                }
+
+                // entry for shape
+                else if (shapeFilteredData.length !== 0){
+
+                    // no entry for country
+                    if (countryFilteredData.length === 0){
+                        // dropping any entries in table
+                        tbody.html("");
+
+                        //setting variable for selections
+                        var shapeStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.shape === shapeInputValue);
+                    
+                        shapeStateDateCityFilteredData.forEach((x) => {
+                            var row = tbody.append("tr");
+                            // adding div with table body
+                            Object.entries(x).forEach(([key, value]) => {
+                            var cell = row.append("td");
+                            cell.text(value);
+                            });
+                        });
+
+                    }
+
+                    // the other option where country is inculded is already taken care of above
+                    // so don't need an else if  here
+                    // could probably actually combine the else if and if into one
+
+               }
+
+            }
+
+            // entry for country, have city and date already included
+            else if (countryFilteredData.length !== 0){}
+
+
+            // entry for shape, have city and date already included
+            else if (shapeFilteredData.length !== 0){}
+        }
+
+        // entry for state, have date included
+        else if (stateFilteredData.length !== 0){}
+
+
+        //entry for country, have date included
+        else if (countryFilteredData.length !== 0){}
+
+        //entry for shape, have date included
+        else if (shapeFilteredData.length !== 0){}
+    }
+
+    // no entry for date
+    else if (dateFilteredData.length === 0){}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // dateFilteredData.forEach((x) => {
+    //     var row = tbody.append("tr");
+    //     // adding div with table body
+    //     Object.entries(x).forEach(([key, value]) => {
+    //       var cell = row.append("td");
+    //       cell.text(value);
+    //     });
+    //   });
+
+
+    // cityFilteredData.forEach((x) => {
+    //     var row = tbody.append("tr");
+    //     // adding div with table body
+    //     Object.entries(x).forEach(([key, value]) => {
+    //       var cell = row.append("td");
+    //       cell.text(value);
+    //     });
+    //   });
   
-    shapeFilteredData.forEach((x) => {
-        var row = tbody.append("tr");
-        // adding div with table body
-        Object.entries(x).forEach(([key, value]) => {
-          var cell = row.append("td");
-          cell.text(value);
-        });
-      });
+    // stateFilteredData.forEach((x) => {
+    //     var row = tbody.append("tr");
+    //     // adding div with table body
+    //     Object.entries(x).forEach(([key, value]) => {
+    //       var cell = row.append("td");
+    //       cell.text(value);
+    //     });
+    //   });
 
+  
+    // countryFilteredData.forEach((x) => {
+    //     var row = tbody.append("tr");
+    //     // adding div with table body
+    //     Object.entries(x).forEach(([key, value]) => {
+    //       var cell = row.append("td");
+    //       cell.text(value);
+    //     });
+    //   });
+   
 
-    //need to d a loop here or something 
-
+  
+    // shapeFilteredData.forEach((x) => {
+    //     var row = tbody.append("tr");
+    //     // adding div with table body
+    //     Object.entries(x).forEach(([key, value]) => {
+    //       var cell = row.append("td");
+    //       cell.text(value);
+    //     });
+    //   }); 
+      
+  
 
 }
 
