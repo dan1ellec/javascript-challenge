@@ -1,8 +1,6 @@
 // from data.js
 var tableData = data;
 
-// YOUR CODE HERE!
-
 // selecting the Filter Table button
 var filterButton = d3.select("#filter-btn");
 
@@ -19,79 +17,48 @@ function searchDate() {
     // Preventing the page from refreshing, when click submit or enter 
     d3.event.preventDefault();
 
-    
 //DATE
-
     // Selecting the input element
     var dateInputElement = d3.select("#datetime")
-
     // obtaining the value of inputElement variable
-    var dateInputValue = dateInputElement.property("value");
-
+    var dateInputValue = dateInputElement.property("value").trim();
     // finding the filtered data for the specific entered date
     // using sighting as a pararmeter for this proccess. it references all the data from tableData
-    // don't think it matters what the parameter name is
     var dateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue);
 
-
-// CITY !!!!!
-
-      // Selecting the input element
+// CITY 
+    // Selecting the input element
     var cityInputElement = d3.select("#city")
-
     // obtaining the value of inputElement variable
-    var cityInputValue = cityInputElement.property("value");
-
+    var cityInputValue = cityInputElement.property("value").toLowerCase().trim();
     // finding the filtered data for the specific entered city
     var cityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
     
-    
-// STATE !!!!!
-
-      // Selecting the input element
+// STATE 
+    // Selecting the input element
     var stateInputElement = d3.select("#state")
-
-      // obtaining the value of inputElement variable
-    var stateInputValue = stateInputElement.property("value");
-  
-      // finding the filtered data for the specific entered city
+    // obtaining the value of inputElement variable
+    var stateInputValue = stateInputElement.property("value").toLowerCase().trim();
+    // finding the filtered data for the specific entered city
     var stateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue);
 
-
-// COUNTRY !!!!!
-
-      // Selecting the input element
+// COUNTRY 
+    // Selecting the input element
     var countryInputElement = d3.select("#country")
-
-      // obtaining the value of inputElement variable
-    var countryInputValue = countryInputElement.property("value");
-  
-      // finding the filtered data for the specific entered city
+    // obtaining the value of inputElement variable
+    var countryInputValue = countryInputElement.property("value").toLowerCase().trim();
+    // finding the filtered data for the specific entered city
     var countryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue);
 
-
-// SHAPE !!!!!
-
-      // Selecting the input element
+// SHAPE 
+    // Selecting the input element
     var shapeInputElement = d3.select("#shape")
-
-      // obtaining the value of inputElement variable
-    var shapeInputValue = shapeInputElement.property("value");
-  
-      // finding the filtered data for the specific entered city
+    // obtaining the value of inputElement variable
+    var shapeInputValue = shapeInputElement.property("value").toLowerCase().trim();  
+    // finding the filtered data for the specific entered city
     var shapeFilteredData = tableData.filter(sighting => sighting.shape === shapeInputValue);
-      
-
-    console.log(dateFilteredData.length);
-    console.log(cityFilteredData.length);
-    console.log(stateFilteredData.length);
-    console.log(countryFilteredData.length);
-
-    //need to d a loop here or something 
-
-
-        
-    // CREATING THE TABLE
+       
+// CREATING THE TABLE
 
     // Getting a reference to the table body in index.html
     var tbody = d3.select("tbody");
@@ -103,11 +70,12 @@ function searchDate() {
     if (dateFilteredData.length !== 0) {
         // no entry for others
         if (cityFilteredData.length === 0 && stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+            // dropping any entries in table
             tbody.html("");
             
+            // creating rows and adding the data
             dateFilteredData.forEach((x) => {
                 var row = tbody.append("tr");
-                // adding div with table body
                 Object.entries(x).forEach(([key, value]) => {
                   var cell = row.append("td");
                   cell.text(value);
@@ -119,13 +87,14 @@ function searchDate() {
         else if (cityFilteredData.length !== 0){
             // no entry for others, just date and city
             if (stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+                // dropping any entries in table
                 tbody.html("");
                 
                 var dateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue);
-
+                
+                // creating rows and adding the data
                 dateCityFilteredData.forEach((x) => {
                     var row = tbody.append("tr");
-                    // adding div with table body
                     Object.entries(x).forEach(([key, value]) => {
                       var cell = row.append("td");
                       cell.text(value);
@@ -142,9 +111,9 @@ function searchDate() {
 
                     var stateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue);
                     
+                    // creating rows and adding the data
                     stateDateCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                           var cell = row.append("td");
                           cell.text(value);
@@ -159,13 +128,11 @@ function searchDate() {
                     if (shapeFilteredData.length === 0){
                         // dropping any entries in table
                         tbody.html("");
-
                         //setting variable for selections
                         var countryStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue);
-                    
+                        // creating rows and adding the data
                         countryStateDateCityFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
-                            // adding div with table body
                             Object.entries(x).forEach(([key, value]) => {
                             var cell = row.append("td");
                             cell.text(value);
@@ -180,10 +147,9 @@ function searchDate() {
 
                          //setting variable for selections
                          var shapeCountryStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
-                     
+                         // creating rows and adding the data
                          shapeCountryStateDateCityFilteredData.forEach((x) => {
                              var row = tbody.append("tr");
-                             // adding div with table body
                              Object.entries(x).forEach(([key, value]) => {
                              var cell = row.append("td");
                              cell.text(value);
@@ -202,10 +168,10 @@ function searchDate() {
 
                         //setting variable for selections
                         var shapeStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.shape === shapeInputValue);
-                    
+                        
+                        // creating rows and adding the data
                         shapeStateDateCityFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
-                            // adding div with table body
                             Object.entries(x).forEach(([key, value]) => {
                             var cell = row.append("td");
                             cell.text(value);
@@ -229,9 +195,9 @@ function searchDate() {
                     //setting variable for selections
                     var countryDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.country === countryInputValue);
 
+                    // creating rows and adding the data
                     countryDateCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -247,9 +213,9 @@ function searchDate() {
                     //setting variable for selections
                     var shapeCountryDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
 
+                    // creating rows and adding the data
                     shapeCountryDateCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -269,9 +235,9 @@ function searchDate() {
                     //setting variable for selections
                     var shapeDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.shape === shapeInputValue);
 
+                    // creating rows and adding the data
                     shapeDateCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -291,9 +257,9 @@ function searchDate() {
                //setting variable for selections
                var stateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue);
                
+               // creating rows and adding the data
                stateDateFilteredData.forEach((x) => {
                 var row = tbody.append("tr");
-                // adding div with table body
                 Object.entries(x).forEach(([key, value]) => {
                 var cell = row.append("td");
                 cell.text(value);
@@ -313,9 +279,9 @@ function searchDate() {
                         //setting variable for selections
                         var countryStateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue && sighting.country === countryInputValue);
                         
+                        // creating rows and adding the data
                         countryStateDateFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
-                            // adding div with table body
                             Object.entries(x).forEach(([key, value]) => {
                             var cell = row.append("td");
                             cell.text(value);
@@ -331,9 +297,9 @@ function searchDate() {
                          //setting variable for selections
                          var shapeCountryStateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
                          
+                         // creating rows and adding the data
                          shapeCountryStateDateFilteredData.forEach((x) => {
                              var row = tbody.append("tr");
-                             // adding div with table body
                              Object.entries(x).forEach(([key, value]) => {
                              var cell = row.append("td");
                              cell.text(value);
@@ -349,10 +315,10 @@ function searchDate() {
 
                     //setting variable for selections
                     var shapeStateDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.state === stateInputValue && sighting.shape === shapeInputValue);
-                         
+                    
+                    // creating rows and adding the data
                     shapeStateDateFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -372,9 +338,9 @@ function searchDate() {
                 //setting variable for selections
                 var countryDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.country === countryInputValue);
                 
+                // creating rows and adding the data
                 countryDateFilteredData.forEach((x) => {
                  var row = tbody.append("tr");
-                 // adding div with table body
                  Object.entries(x).forEach(([key, value]) => {
                  var cell = row.append("td");
                  cell.text(value);
@@ -390,9 +356,9 @@ function searchDate() {
                 //setting variable for selections
                 var shapeCountryDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.country === countryInputValue && sighting.shape === shapeInputValue);
                 
+                // creating rows and adding the data
                 shapeCountryDateFilteredData.forEach((x) => {
                  var row = tbody.append("tr");
-                 // adding div with table body
                  Object.entries(x).forEach(([key, value]) => {
                  var cell = row.append("td");
                  cell.text(value);
@@ -411,9 +377,9 @@ function searchDate() {
                 //setting variable for selections
                 var shapeDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.shape === shapeInputValue);
                 
+                // creating rows and adding the data
                 shapeDateFilteredData.forEach((x) => {
                  var row = tbody.append("tr");
-                 // adding div with table body
                  Object.entries(x).forEach(([key, value]) => {
                  var cell = row.append("td");
                  cell.text(value);
@@ -433,10 +399,8 @@ function searchDate() {
             var row = tbody.append("tr");
             // adding a data tag
             var cell = row.append("td");
-            
-            cell.text("No sightings match your search criteria");
-            
-
+            // printing message
+            cell.text("No sightings match your search criteria");   
         }
         // entry for city
         else if (cityFilteredData.length !== 0){
@@ -446,9 +410,9 @@ function searchDate() {
                 
                 var CityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
 
+                // creating rows and adding the data
                 CityFilteredData.forEach((x) => {
                     var row = tbody.append("tr");
-                    // adding div with table body
                     Object.entries(x).forEach(([key, value]) => {
                       var cell = row.append("td");
                       cell.text(value);
@@ -465,9 +429,9 @@ function searchDate() {
 
                     var stateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue);
                     
+                    // creating rows and adding the data
                     stateCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                           var cell = row.append("td");
                           cell.text(value);
@@ -485,10 +449,10 @@ function searchDate() {
 
                         //setting variable for selections
                         var countryStateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue);
-                    
+                        
+                        // creating rows and adding the data
                         countryStateCityFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
-                            // adding div with table body
                             Object.entries(x).forEach(([key, value]) => {
                             var cell = row.append("td");
                             cell.text(value);
@@ -503,10 +467,10 @@ function searchDate() {
 
                          //setting variable for selections
                          var shapeCountryStateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
-                     
+                         
+                         // creating rows and adding the data
                          shapeCountryStateCityFilteredData.forEach((x) => {
                              var row = tbody.append("tr");
-                             // adding div with table body
                              Object.entries(x).forEach(([key, value]) => {
                              var cell = row.append("td");
                              cell.text(value);
@@ -526,9 +490,9 @@ function searchDate() {
                         //setting variable for selections
                         var shapeStateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.shape === shapeInputValue);
                     
+                        // creating rows and adding the data
                         shapeStateCityFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
-                            // adding div with table body
                             Object.entries(x).forEach(([key, value]) => {
                             var cell = row.append("td");
                             cell.text(value);
@@ -552,9 +516,9 @@ function searchDate() {
                     //setting variable for selections
                     var countryCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.country === countryInputValue);
 
+                    // creating rows and adding the data
                     countryCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -570,9 +534,9 @@ function searchDate() {
                     //setting variable for selections
                     var shapeCountryCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
 
+                    // creating rows and adding the data
                     shapeCountryCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -592,9 +556,9 @@ function searchDate() {
                     //setting variable for selections
                     var shapeCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.shape === shapeInputValue);
 
+                    // creating rows and adding the data
                     shapeCityFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -614,9 +578,9 @@ function searchDate() {
                //setting variable for selections
                var stateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue);
                
+               // creating rows and adding the data
                stateFilteredData.forEach((x) => {
                 var row = tbody.append("tr");
-                // adding div with table body
                 Object.entries(x).forEach(([key, value]) => {
                 var cell = row.append("td");
                 cell.text(value);
@@ -636,9 +600,9 @@ function searchDate() {
                         //setting variable for selections
                         var countryStateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue && sighting.country === countryInputValue);
                         
+                        // creating rows and adding the data
                         countryStateFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
-                            // adding div with table body
                             Object.entries(x).forEach(([key, value]) => {
                             var cell = row.append("td");
                             cell.text(value);
@@ -654,9 +618,9 @@ function searchDate() {
                          //setting variable for selections
                          var shapeCountryStateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
                          
+                         // creating rows and adding the data
                          shapeCountryStateFilteredData.forEach((x) => {
                              var row = tbody.append("tr");
-                             // adding div with table body
                              Object.entries(x).forEach(([key, value]) => {
                              var cell = row.append("td");
                              cell.text(value);
@@ -672,10 +636,10 @@ function searchDate() {
 
                     //setting variable for selections
                     var shapeStateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue && sighting.shape === shapeInputValue);
-                         
+                    
+                    // creating rows and adding the data
                     shapeStateFilteredData.forEach((x) => {
                         var row = tbody.append("tr");
-                        // adding div with table body
                         Object.entries(x).forEach(([key, value]) => {
                         var cell = row.append("td");
                         cell.text(value);
@@ -695,9 +659,9 @@ function searchDate() {
                 //setting variable for selections
                 var countryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue);
                 
+                // creating rows and adding the data
                 countryFilteredData.forEach((x) => {
                  var row = tbody.append("tr");
-                 // adding div with table body
                  Object.entries(x).forEach(([key, value]) => {
                  var cell = row.append("td");
                  cell.text(value);
@@ -713,9 +677,9 @@ function searchDate() {
                 //setting variable for selections
                 var shapeCountryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue && sighting.shape === shapeInputValue);
                 
+                // creating rows and adding the data
                 shapeCountryFilteredData.forEach((x) => {
                  var row = tbody.append("tr");
-                 // adding div with table body
                  Object.entries(x).forEach(([key, value]) => {
                  var cell = row.append("td");
                  cell.text(value);
@@ -734,9 +698,10 @@ function searchDate() {
                 //setting variable for selections
                 var shapeFilteredData = tableData.filter(sighting => sighting.shape === shapeInputValue);
                 
+                // creating rows and adding the data
                 shapeFilteredData.forEach((x) => {
                  var row = tbody.append("tr");
-                 // adding div with table body
+
                  Object.entries(x).forEach(([key, value]) => {
                  var cell = row.append("td");
                  cell.text(value);
@@ -744,102 +709,6 @@ function searchDate() {
              });    
             }
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // dateFilteredData.forEach((x) => {
-    //     var row = tbody.append("tr");
-    //     // adding div with table body
-    //     Object.entries(x).forEach(([key, value]) => {
-    //       var cell = row.append("td");
-    //       cell.text(value);
-    //     });
-    //   });
-
-
-    // cityFilteredData.forEach((x) => {
-    //     var row = tbody.append("tr");
-    //     // adding div with table body
-    //     Object.entries(x).forEach(([key, value]) => {
-    //       var cell = row.append("td");
-    //       cell.text(value);
-    //     });
-    //   });
-  
-    // stateFilteredData.forEach((x) => {
-    //     var row = tbody.append("tr");
-    //     // adding div with table body
-    //     Object.entries(x).forEach(([key, value]) => {
-    //       var cell = row.append("td");
-    //       cell.text(value);
-    //     });
-    //   });
-
-  
-    // countryFilteredData.forEach((x) => {
-    //     var row = tbody.append("tr");
-    //     // adding div with table body
-    //     Object.entries(x).forEach(([key, value]) => {
-    //       var cell = row.append("td");
-    //       cell.text(value);
-    //     });
-    //   });
-   
-
-  
-    // shapeFilteredData.forEach((x) => {
-    //     var row = tbody.append("tr");
-    //     // adding div with table body
-    //     Object.entries(x).forEach(([key, value]) => {
-    //       var cell = row.append("td");
-    //       cell.text(value);
-    //     });
-    //   }); 
-      
-  
-
 }
 
-
-
-
-    // checking output
-    //console.log(inputValue);
-    //console.log(tableData);
-    //console.log(filteredData);
-
-
-// broken up if needed
-
-    // appending a row 'tr' for each filteredData object
-    // data.forEach(function(filteredData) {
-    //     console.log(filteredData);
-    //     var row = tbody.append("tr");
-    //     });
-    // this works! it is all logged and tr appears in the section in tbody when looking at Elements in chrome
-
-
-
-    // tableData.forEach((filteredData) => {
-    //     var row = tbody.append("tr");
-    //     // adding div with table body
-    //     Object.entries(filteredData).forEach(([key, value]) => {
-    //       var cell = row.append("td");
-    //       cell.text(value);
-    //     });
-    //   });
