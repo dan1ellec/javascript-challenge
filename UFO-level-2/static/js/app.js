@@ -20,7 +20,7 @@ function searchDate() {
 //DATE
     // Selecting the input element
     var dateInputElement = d3.select("#datetime")
-    // obtaining the value of inputElement variable
+    // obtaining the value of inputElement variable, removing white space
     var dateInputValue = dateInputElement.property("value").trim();
     // finding the filtered data for the specific entered date
     // using sighting as a pararmeter for this proccess. it references all the data from tableData
@@ -29,7 +29,7 @@ function searchDate() {
 // CITY 
     // Selecting the input element
     var cityInputElement = d3.select("#city")
-    // obtaining the value of inputElement variable
+    // obtaining the value of inputElement variable, changing to lowercase and removing white space
     var cityInputValue = cityInputElement.property("value").toLowerCase().trim();
     // finding the filtered data for the specific entered city
     var cityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
@@ -37,7 +37,7 @@ function searchDate() {
 // STATE 
     // Selecting the input element
     var stateInputElement = d3.select("#state")
-    // obtaining the value of inputElement variable
+    // obtaining the value of inputElement variable, changing to lowercase and removing white space
     var stateInputValue = stateInputElement.property("value").toLowerCase().trim();
     // finding the filtered data for the specific entered city
     var stateFilteredData = tableData.filter(sighting => sighting.state === stateInputValue);
@@ -45,7 +45,7 @@ function searchDate() {
 // COUNTRY 
     // Selecting the input element
     var countryInputElement = d3.select("#country")
-    // obtaining the value of inputElement variable
+    // obtaining the value of inputElement variable, changing to lowercase and removing white space
     var countryInputValue = countryInputElement.property("value").toLowerCase().trim();
     // finding the filtered data for the specific entered city
     var countryFilteredData = tableData.filter(sighting => sighting.country === countryInputValue);
@@ -53,7 +53,7 @@ function searchDate() {
 // SHAPE 
     // Selecting the input element
     var shapeInputElement = d3.select("#shape")
-    // obtaining the value of inputElement variable
+    // obtaining the value of inputElement variable, changing to lowercase and removing white space
     var shapeInputValue = shapeInputElement.property("value").toLowerCase().trim();  
     // finding the filtered data for the specific entered city
     var shapeFilteredData = tableData.filter(sighting => sighting.shape === shapeInputValue);

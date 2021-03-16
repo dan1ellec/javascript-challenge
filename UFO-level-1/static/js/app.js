@@ -20,7 +20,7 @@ function searchDate() {
     // Selecting the input element
     var inputElement = d3.select(".form-control")
 
-    // obtaining the value of the inputElement about
+    // obtaining the value of the inputElement, and removing excess space
     var inputValue = inputElement.property("value").trim();
 
     // testing
