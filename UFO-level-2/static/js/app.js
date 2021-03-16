@@ -156,6 +156,9 @@ function searchDate() {
                              });
                          });
                     }
+
+                    
+
                 }
 
                 // entry for shape
@@ -180,8 +183,7 @@ function searchDate() {
 
                     }
                     // the other option where country is inculded is already taken care of above
-                    // so don't need an else if  here
-                    // could probably actually combine the else if and if into one
+                    // so don't need an else if here
                }
 
             }
@@ -501,8 +503,6 @@ function searchDate() {
 
                     }
                     // the other option where country is inculded is already taken care of above
-                    // so don't need an else if  here
-                    // could probably actually combine the else if and if into one
                }
 
             }

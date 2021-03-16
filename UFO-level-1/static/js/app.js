@@ -4,7 +4,7 @@ var tableData = data;
 // selecting the Filter Table button
 var filterButton = d3.select("#filter-btn");
 
-// Selecting the form, added a "form" id to the form tage to select this
+// Selecting the form, added a "form" id to the form tag to select this
 var form = d3.select("#form");
 
 // Creating event handlers for clicking the button or pressing the enter key
