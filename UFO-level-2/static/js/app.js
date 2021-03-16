@@ -90,6 +90,7 @@ function searchDate() {
                 // dropping any entries in table
                 tbody.html("");
                 
+                //setting variable for selections
                 var dateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue);
                 
                 // creating rows and adding the data
@@ -107,8 +108,10 @@ function searchDate() {
 
                 // no entry for others, info for date, city, state
                 if (countryFilteredData.length === 0 && shapeFilteredData.length === 0) {
+                    // dropping any entries in table
                     tbody.html("");
-
+                    
+                    //setting variable for selections
                     var stateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue);
                     
                     // creating rows and adding the data
@@ -128,8 +131,10 @@ function searchDate() {
                     if (shapeFilteredData.length === 0){
                         // dropping any entries in table
                         tbody.html("");
+                        
                         //setting variable for selections
                         var countryStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue);
+                        
                         // creating rows and adding the data
                         countryStateDateCityFilteredData.forEach((x) => {
                             var row = tbody.append("tr");
@@ -147,6 +152,7 @@ function searchDate() {
 
                          //setting variable for selections
                          var shapeCountryStateDateCityFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue && sighting.city === cityInputValue && sighting.state === stateInputValue && sighting.country === countryInputValue && sighting.shape === shapeInputValue);
+                         
                          // creating rows and adding the data
                          shapeCountryStateDateCityFilteredData.forEach((x) => {
                              var row = tbody.append("tr");
@@ -156,8 +162,6 @@ function searchDate() {
                              });
                          });
                     }
-
-                    
 
                 }
 
@@ -182,7 +186,7 @@ function searchDate() {
                         });
 
                     }
-                    // the other option where country is inculded is already taken care of above
+                    // the other option where country is included is already taken care of above
                     // so don't need an else if here
                }
 
@@ -376,7 +380,7 @@ function searchDate() {
                 // dropping any entries in table
                 tbody.html("");
  
-                //setting variable for selections
+                // setting variable for selections
                 var shapeDateFilteredData = tableData.filter(sighting => sighting.datetime === dateInputValue &&  sighting.shape === shapeInputValue);
                 
                 // creating rows and adding the data
@@ -408,8 +412,10 @@ function searchDate() {
         else if (cityFilteredData.length !== 0){
             // no entry for others, just city
             if (stateFilteredData.length === 0 && countryFilteredData.length === 0 && shapeFilteredData.length === 0){
+                // dropping any entries in table
                 tbody.html("");
                 
+                // setting variable for selections
                 var CityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue);
 
                 // creating rows and adding the data
@@ -427,8 +433,10 @@ function searchDate() {
 
                 // no entry for others, info for city, state
                 if (countryFilteredData.length === 0 && shapeFilteredData.length === 0) {
+                    // dropping any entries in table
                     tbody.html("");
 
+                    // setting variable for selections
                     var stateCityFilteredData = tableData.filter(sighting => sighting.city === cityInputValue && sighting.state === stateInputValue);
                     
                     // creating rows and adding the data
